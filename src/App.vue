@@ -4,7 +4,7 @@
     <main class="container flex flex-row p-6">
       <MtnList :mtnsByRange="mtnsByRange" />
 
-      <MtnInfo v-if="$route.params.slug" />
+      <MtnInfo v-if="$route.params.slug" :mtn="selectedMtn" />
 
       <HomePage v-else />
     </main>
@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       mtnsByRange: [],
+      selectedMtn: null,
     };
   },
 
@@ -34,6 +35,21 @@ export default {
     fourteeners.data.forEach((range) => {
       this.mtnsByRange.push(range);
     });
+  },
+
+  watch: {
+    $route: {
+      handler: function() {
+        fourteeners.data.forEach((range) => {
+          range.mtns.forEach((mtn) => {
+            if (mtn.slug === this.$route.params.slug) {
+              this.selectedMtn = mtn;
+            }
+          });
+        });
+      },
+      immediate: true,
+    },
   },
 };
 </script>
