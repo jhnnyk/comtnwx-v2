@@ -10,4 +10,8 @@
   a:hover {
     @apply underline;
   }
+
+  #homepage p {
+    @apply mb-4;
+  }
 }
