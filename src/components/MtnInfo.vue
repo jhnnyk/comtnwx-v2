@@ -75,5 +75,16 @@ export default {
       forecastLoading: true,
     };
   },
+
+  watch: {
+    $route: {
+      handler: async function() {
+        const response = await fetch(this.mtn.forecastURL);
+        const data = await response.json();
+        console.log(data);
+      },
+      immediate: true,
+    },
+  },
 };
 </script>
